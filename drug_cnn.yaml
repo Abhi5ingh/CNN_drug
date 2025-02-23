@@ -1,0 +1,28 @@
+name: drug_cnn
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - rdkit
+  - pandas
+  - numpy
+  - scikit-learn
+  - tensorflow
+  - keras
+  - matplotlib
+  - seaborn
+  - jupyter
+  - nb_conda_kernels
+  - pillow
+  - tqdm
+  - joblib
+  - pyyaml
+  - pip:
+    - fastapi
+    - uvicorn
+    - pydantic
+    - requests
+    - gunicorn
+    - pytest
