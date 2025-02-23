@@ -20,7 +20,7 @@ def ism_csv(ism_file,label,output_csv):
         return False
     
 
-def merge_datsets(actives_csv,decoys_csv,merged_csv):
+def merge_datasets(actives_csv,decoys_csv,merged_csv):
     """ Merges active and decoy datasets into a single CSV with SMILES and Activity."""
     logging.info("Merging active and decoy datasets")
     try:
