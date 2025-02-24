@@ -8,4 +8,5 @@ pandas
 tesorflow
 numpy
 keras
+focal_loss
 -e .

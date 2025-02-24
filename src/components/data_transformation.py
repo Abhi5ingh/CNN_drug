@@ -40,8 +40,8 @@ def generate_images_from_csv(csv_file,output_base="dataset"):
             logging.error(f"Empty CSV {csv_file}")
             return False
         
-        active_dir = os.path.join(output_base,"active")
-        inactive_dir = os.path.join(output_base,"inactive")
+        active_dir = os.path.join(output_base,"1_active")
+        inactive_dir = os.path.join(output_base,"0_inactive")
 
         ensure_dir(active_dir)
         ensure_dir(inactive_dir)

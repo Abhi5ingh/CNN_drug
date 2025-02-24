@@ -7,11 +7,12 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras import layers, models, optimizers
 from src.utils import ensure_dir
 from src.components.model import build_model
+from focal_loss import BinaryFocalLoss
 
 def train_cnn(dataset_dir="dataset",
               img_size=(224,224),
-              batch_size=32,epochs=5,
-              model_save_path="cnn_tki_classifier.h5"):
+              batch_size=32,epochs=20,
+              model_save_path="cnn_tki_classifier"):
     """Trains a CNN model on images in dataset_dir and saves the model to model_save_path."""
     logging.info(f"Training CNN model on images in {dataset_dir}")
     if not os.path.exists(dataset_dir):
@@ -42,16 +43,17 @@ def train_cnn(dataset_dir="dataset",
                                                       subset='validation',
                                                       shuffle=False)
     model = build_model(img_size,channels=3)
-    model.compile(optimizers.Adam(lr=0.0001),loss='binary_crossentropy',metrics=['accuracy'])
+    model.compile(optimizers.Adam(learning_rate=0.001),loss=BinaryFocalLoss(gamma=2.0),metrics=['accuracy'])
 
     model.summary(print_fn=logging.info)
-
+    class_weight={0:1.0, 1:1.5}
     history=model.fit(train_generator,
                       steps_per_epoch=train_generator.samples//batch_size,
                       validation_data=val_generator,
                       validation_steps=val_generator.samples//batch_size,
+                      class_weight=class_weight,
                       epochs=epochs)
-    model.save(model_save_path)
+    model.save(model_save_path,save_format='tf')
     logging.info(f"Model saved to {model_save_path}")
 
     return model
